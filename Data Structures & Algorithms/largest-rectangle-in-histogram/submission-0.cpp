@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        std::stack<int> s;
+        int max_area = 0;
+        int n = heights.size();
+        for (int i = 0; i <= heights.size(); i++)
+        {
+            int curr = (i == n) ? 0 : heights[i];
+            while(!s.empty() && curr < heights[s.top()])
+            {
+                int height = heights[s.top()];
+                s.pop();
+
+                int width = s.empty() ? i : i - s.top() - 1;
+
+                max_area = max(max_area, height * width);
+            }
+
+
+            s.push(i);
+        }   
+
+        return max_area;
+    }
+};
